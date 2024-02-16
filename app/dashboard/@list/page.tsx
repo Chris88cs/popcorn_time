@@ -1,3 +1,4 @@
+import { Key, ReactElement, JSXElementConstructor, ReactNode, ReactPortal, PromiseLikeOfReactNode } from "react";
 
 async function getData(page: number | 1, search: string | '') {
     const includeAdult = 'include_adult=false';
@@ -78,7 +79,7 @@ export default async function Movies({
 
                 {rowLen > 0 ? (
                     <div>
-                        {data.results.map((item, i) => (
+                        {data.results.map((item: { id: Key | null | undefined; title: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; overview: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; release_date: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; popularity: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; vote_average: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; }) => (
                             <div key={item.id} style={{ height: 40 + 'px' }}>
                                 <div className="inline-block border-b border-r truncate px-2.5  border-gray-500" style={{ width: 17.5 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{item.title}</div>
                                 <div className="inline-block border-b border-r truncate px-2.5 border-gray-500" style={{ width: 55 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{item.overview}</div>

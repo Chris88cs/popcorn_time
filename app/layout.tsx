@@ -11,15 +11,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
     children,
-    search,
 }: Readonly<{
     children: React.ReactNode;
-    search: React.ReactNode;
 }>) {
     return (
         <html lang="en">
             <body className={inter.className}>
-                {search}
                 {children}
             </body>
         </html>
