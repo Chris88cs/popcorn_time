@@ -1,5 +1,5 @@
 import { Key, ReactElement, JSXElementConstructor, ReactNode, ReactPortal, PromiseLikeOfReactNode } from "react";
-
+import Popup from '../../components/popup'
 async function getData(page: number | 1, search: string | '') {
     const includeAdult = 'include_adult=false';
     const includeVideo = '&include_video=false';
@@ -70,10 +70,11 @@ export default async function Movies({
                 <div>
                     <div style={{ height: 40 + 'px' }}>
                         <div className="inline-block text-center font-bold truncate border-b border-r border-gray-500" style={{ width: 17.5 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>Title</div>
-                        <div className="inline-block text-center font-bold truncate border-b border-r border-gray-500" style={{ width: 55 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>Description</div>
+                        <div className="inline-block text-center font-bold truncate border-b border-r border-gray-500" style={{ width: 53 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>Description</div>
                         <div className="inline-block text-center font-bold truncate border-b border-r border-gray-500" style={{ width: 10 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>Release Date</div>
                         <div className="inline-block text-center font-bold truncate border-b border-r border-gray-500" style={{ width: 10 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>Popularity</div>
-                        <div className="inline-block text-center font-bold truncate border-b border-gray-500" style={{ width: 5 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>Rating</div>
+                        <div className="inline-block text-center font-bold truncate border-b border-r border-gray-500" style={{ width: 5 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>Rating</div>
+                        <div className="inline-block text-center font-bold truncate border-b border-gray-500" style={{ width: 2 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}></div>
                     </div>
                 </div>
 
@@ -82,12 +83,13 @@ export default async function Movies({
                         {data.results.map((item: { id: Key | null | undefined; title: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; overview: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; release_date: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; popularity: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; vote_average: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; }) => (
                             <div key={item.id} style={{ height: 40 + 'px' }}>
                                 <div className="inline-block border-b border-r truncate px-2.5  border-gray-500" style={{ width: 17.5 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{item.title}</div>
-                                <div className="inline-block border-b border-r truncate px-2.5 border-gray-500" style={{ width: 55 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{item.overview}</div>
+                                <div className="inline-block border-b border-r truncate px-2.5 border-gray-500" style={{ width: 53 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{item.overview}</div>
                                 <div className="inline-block border-b border-r truncate text-center border-gray-500" style={{ width: 10 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{item.release_date}</div>
                                 <div className="inline-block border-b border-r truncate text-center border-gray-500" style={{ width: 10 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{item.popularity}</div>
-                                <div className="inline-block border-b truncate text-center border-gray-500" style={{ width: 5 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{item.vote_average}</div>
+                                <div className="inline-block border-b border-r truncate text-center border-gray-500" style={{ width: 5 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{item.vote_average}</div>
+                                <div className="inline-block text-center font-bold truncate border-b border-gray-500" style={{ width: 2 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}><Popup movies={item}></Popup></div>
                             </div>
-
+                            
                         ))}
                     </div>
                 ) : (
@@ -120,7 +122,7 @@ export default async function Movies({
                     </li>
                 </ul>
             </nav>
-
+            
         </>
     )
 }

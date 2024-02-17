@@ -7,6 +7,7 @@ export default function RootLayout({
     children: React.ReactNode;
     search: React.ReactNode;
     list: React.ReactNode;
+    popup: React.ReactNode;
 }>) {
     return (
         <div>
