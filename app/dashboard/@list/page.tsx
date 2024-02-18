@@ -80,8 +80,8 @@ export default async function Movies({
                                 <div className="inline-block border-b border-r truncate px-2.5  border-gray-500" style={{ width: 17.5 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{item.title}</div>
                                 <div className="inline-block border-b border-r truncate px-2.5 border-gray-500" style={{ width: 44 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{item.overview}</div>
                                 <div className="inline-block border-b border-r truncate text-center border-gray-500" style={{ width: 13 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{item.release_date}</div>
-                                <div className="inline-block border-b border-r truncate text-center border-gray-500" style={{ width: 13 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{Math.round(item.popularity * 10) / 10}</div>
-                                <div className="inline-block border-b border-r truncate text-center border-gray-500" style={{ width: 7 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{Math.round(item.vote_average * 10) / 10}</div>
+                                <div className="inline-block border-b border-r truncate text-center border-gray-500" style={{ width: 13 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{item.popularity}</div>
+                                <div className="inline-block border-b border-r truncate text-center border-gray-500" style={{ width: 7 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{item.vote_average}</div>
                                 <div className="inline-block text-center font-bold truncate border-b border-gray-500" style={{ width: 3.2 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}><Popup movies={item}></Popup></div>
                             </div>
                             
