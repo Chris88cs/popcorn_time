@@ -16,7 +16,7 @@ async function getData(page: number | 1, search: string | '', sortby: string | '
     else {
         query = 'https://api.themoviedb.org/3/discover/movie?' + includeAdult + includeVideo + language + currentPage + dsortBy + dorderBy;
     }
-    console.log(query);
+
     const res = await fetch(query, {
         method: 'GET',
         headers: {
@@ -45,16 +45,13 @@ export default async function Movies({
     let sortbyText = (searchParams.sortby != undefined) ? searchParams.sortby : '';
     let orderbyText = (searchParams.orderby != undefined) ? searchParams.orderby : '';
 
-    const dNext = ((dCurrentPage > 1) && (dCurrentPage < dTotalPage)) ? dCurrentPage + 1 : 1;
+    const dNext = (dCurrentPage < dTotalPage) ? dCurrentPage + 1 : 1;
     const dPrevious = (dCurrentPage > 1) ? dCurrentPage - 1 : 1;
 
     let additionalLink = '';
     if (searchText != '') { additionalLink += '&search=' + searchText; }
     if (sortbyText != '') { additionalLink += '&sortby=' + sortbyText; }
     if (orderbyText != '') { additionalLink += '&orderby=' + orderbyText; }
-
-
-
 
     let dPagination1: number = (dCurrentPage > 2) ? dCurrentPage - 2 : 1;
     let dPagination2: number = (dCurrentPage > 2) ? dCurrentPage - 1 : 2;
@@ -68,12 +65,12 @@ export default async function Movies({
     const dPaginationlinks4 = '/dashboard?page=' + dPagination4 + additionalLink;
     const dPaginationlinks5 = '/dashboard?page=' + dPagination5 + additionalLink;
 
-    let dPaginationNext = '/dashboard?search=' + searchText + '&page=' + dNext + '&sortby=' + sortbyText + '&orderby=' + orderbyText;
-    let dPaginationPrevious = '/dashboard?search=' + searchText + '&page=' + dPrevious + '&sortby=' + sortbyText + '&orderby=' + orderbyText;
+    let dPaginationNext = '/dashboard?page=' + dNext + additionalLink;
+    let dPaginationPrevious = '/dashboard?page=' + dPrevious + additionalLink;
 
     return (
         <>
-            <div className="m-2 shadow border-2 bg-blue-200 whitespace-nowrap border-gray-500">
+            <div className="list m-2 border-2 bg-blue-200 whitespace-nowrap border-gray-500" style={{ width: 98 + 'vw' }} >
                 <Sort sortby={sortbyText} orderby={orderbyText} page={dCurrentPage}></Sort>
 
                 {rowLen > 0 ? (
@@ -83,9 +80,9 @@ export default async function Movies({
                                 <div className="inline-block border-b border-r truncate px-2.5  border-gray-500" style={{ width: 17.5 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{item.title}</div>
                                 <div className="inline-block border-b border-r truncate px-2.5 border-gray-500" style={{ width: 44 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{item.overview}</div>
                                 <div className="inline-block border-b border-r truncate text-center border-gray-500" style={{ width: 13 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{item.release_date}</div>
-                                <div className="inline-block border-b border-r truncate text-center border-gray-500" style={{ width: 13 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{item.popularity}</div>
-                                <div className="inline-block border-b border-r truncate text-center border-gray-500" style={{ width: 8 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{item.vote_average}</div>
-                                <div className="inline-block text-center font-bold truncate border-b border-gray-500" style={{ width: 2 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}><Popup movies={item}></Popup></div>
+                                <div className="inline-block border-b border-r truncate text-center border-gray-500" style={{ width: 13 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{Math.round(item.popularity * 10) / 10}</div>
+                                <div className="inline-block border-b border-r truncate text-center border-gray-500" style={{ width: 7 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}>{Math.round(item.vote_average * 10) / 10}</div>
+                                <div className="inline-block text-center font-bold truncate border-b border-gray-500" style={{ width: 3.2 + 'vw', height: 40 + 'px', paddingTop: 5 + 'px' }}><Popup movies={item}></Popup></div>
                             </div>
                             
                         ))}
@@ -99,22 +96,49 @@ export default async function Movies({
                 <ul className="list-style-none flex justify-center">
                     <li>
                             <a className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white no-underline" href={dPaginationPrevious}>Previous</a>
-                    </li>
-                    <li>
-                            <a className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white no-underline" href={dPaginationlinks1}>{dPagination1}</a>
-                    </li>
-                    <li>
-                            <a className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white no-underline" href={dPaginationlinks2}>{dPagination2}</a>
-                    </li>
-                    <li>
-                            <a className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white no-underline" href={dPaginationlinks3}>{dPagination3}</a>
-                    </li>
-                    <li>
-                            <a className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white no-underline" href={dPaginationlinks4}>{dPagination4}</a>
-                    </li>
-                    <li>
-                            <a className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white no-underline" href={dPaginationlinks5}>{dPagination5}</a>
-                    </li>
+                        </li>
+
+                        {dCurrentPage == dPagination1 ? (
+                            <li className="bg-gray-600 rounded-full">
+                                <a className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white no-underline" href={dPaginationlinks1}><span className=" text-white">{dPagination1}</span></a>
+                            </li>
+                        ) : (
+                            <li><a className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white no-underline" href={dPaginationlinks1}><span>{dPagination1}</span></a></li>
+                        )}
+
+                        {dCurrentPage == dPagination2 ? (
+                            <li className="bg-gray-600 rounded-full">
+                                <a className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white no-underline" href={dPaginationlinks2}><span className=" text-white">{dPagination2}</span></a>
+                            </li>
+                        ) : (
+                            <li><a className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white no-underline" href={dPaginationlinks2}><span>{dPagination2}</span></a></li>
+                        )}
+
+                        {dCurrentPage == dPagination3 ? (
+                            <li className="bg-gray-600 rounded-full">
+                                <a className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white no-underline" href={dPaginationlinks3}><span className=" text-white">{dPagination3}</span></a>
+                            </li>
+                        ) : (
+                                <li><a className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white no-underline" href={dPaginationlinks3}><span>{dPagination3}</span></a></li>
+                        )}
+
+                        {dCurrentPage == dPagination4 ? (
+                            <li className="bg-gray-600 rounded-full">
+                                <a className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white no-underline" href={dPaginationlinks4}><span className=" text-white">{dPagination4}</span></a>
+                            </li>
+                        ) : (
+                                <li><a className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white no-underline" href={dPaginationlinks4}><span>{dPagination4}</span></a></li>
+                        )}
+
+                        {dCurrentPage == dPagination5 ? (
+                            <li className="bg-gray-600 rounded-full">
+                                <a className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white no-underline" href={dPaginationlinks5}><span className=" text-white">{dPagination5}</span></a>
+                            </li>
+                        ) : (
+                                <li><a className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white no-underline" href={dPaginationlinks5}><span>{dPagination5}</span></a></li>
+                        )}
+
+
                     <li>
                             <a className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white no-underline" href={dPaginationNext}>Next</a>
                     </li>

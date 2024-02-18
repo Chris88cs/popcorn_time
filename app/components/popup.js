@@ -10,8 +10,8 @@ export default function Popup({ movies }) {
         <div>
             <button onClick={() => setShowModal(true)}><i className="fa fa-eye" aria-hidden="true"></i></button>
             {showModal &&
-                <div className="flex absolute inset-0 bg-gray-900 bg-opacity-50" style={{ margin: 'auto', width: 100 + '%', height: 100 + 'vw' }}>
-                    <div className="inline-block relative bg-white rounded-3xl pb-3" style={{ margin: 'auto', width: 50 + 'vw', 'min-height' : 560 + 'px' }}>
+                <div className="block absolute inset-0 bg-gray-900 bg-opacity-50" style={{ width: 100 + '%', height: 100 + 'vw', 'max-height': 1030 + 'px' }}>
+                    <div className="inline-block relative bg-white rounded-3xl pb-3" style={{ margin: 'auto', width: 50 + 'vw', 'min-height' : 560 + 'px', top:10 + 'vw' }}>
                         <button className="absolute -right-0 mt-2 mr-3" onClick={() => setShowModal(false)}><i className="fa fa-times text-xl" aria-hidden="true"></i></button>
                         <div className="mt-3">
                             <h1 className="pb-3">{movies.title}</h1>

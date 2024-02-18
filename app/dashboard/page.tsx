@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 export default function Dashboard() {
     return (
         <>
-            <h1>Movies List</h1>
+            <h1 className="font-sans text-center pb-10">List of movies</h1>
         </>
     )
 }

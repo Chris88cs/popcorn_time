@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en"> 
-            <body className={inter.className}>
+            <body className={inter.className} >
                 <link
                     rel="stylesheet"
                     type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
